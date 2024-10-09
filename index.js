@@ -16,12 +16,12 @@ const { name, author } = require(join(__dirname, './package.json')) // https://w
 const { say } = cfonts
 const rl = createInterface(process.stdin, process.stdout)
 
-say('Dylux FG98', {
+say('Queen-Shenali', {
   font: 'pallet',
   align: 'center',
   gradient: ['red', 'magenta']
 })
-say(`dylux-bot By FG98 Ig: @fg98_ff`, {
+say(`Queen-Shenali-By: @AshenEditZ`, {
   font: 'console',
   align: 'center',
   gradient: ['cyan', 'magenta']

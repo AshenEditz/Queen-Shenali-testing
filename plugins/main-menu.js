@@ -1,62 +1,112 @@
-import { cpus as _cpus, totalmem, freemem } from 'os'
-import util from 'util'
-import { performance } from 'perf_hooks'
-import { sizeFormatter } from 'human-readable'
-let format = sizeFormatter({
-  std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
-  decimalPlaces: 2,
-  keepTrailingZeroes: false,
-  render: (literal, symbol) => `${literal} ${symbol}B`,
-})
-let handler = async (m, { conn, usedPrefix, command }) => {
-  const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
-  const groupsIn = chats.filter(([id]) => id.endsWith('@g.us')) //groups.filter(v => !v.read_only)
-  const used = process.memoryUsage()
-  const cpus = _cpus().map(cpu => {
-    cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
-    return cpu
-  })
-  const cpu = cpus.reduce((last, cpu, _, { length }) => {
-    last.total += cpu.total
-    last.speed += cpu.speed / length
-    last.times.user += cpu.times.user
-    last.times.nice += cpu.times.nice
-    last.times.sys += cpu.times.sys
-    last.times.idle += cpu.times.idle
-    last.times.irq += cpu.times.irq
-    return last
-  }, {
-    speed: 0,
-    total: 0,
-    times: {
-      user: 0,
-      nice: 0,
-      sys: 0,
-      idle: 0,
-      irq: 0
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+let pp = './src/fg_logo.jpg'
+m.react('💝')
+	let _muptime
+    if (process.send) {
+      process.send('uptime')
+      _muptime = await new Promise(resolve => {
+        process.once('message', resolve)
+        setTimeout(resolve, 1000)
+      }) * 1000
     }
-  })
-  let old = performance.now()
-  
-  let neww = performance.now()
-  let speed = neww - old
-  let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-if (!(who in global.db.data.users)) throw `💝 MENU IS NOT WORKING`
-let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './src/fg_logo.jpg')
-let user = global.db.data.users[who]
-  
-let infobt = `
-🅀🅄🄴🄴🄽-🅂🄷🄴🄽🄰🄻🄸-🄼🄳 
-💝ȦĊṪİV̇E ṠĊṠṠU̇ṠḞU̇L̇L̇Ẏ̇ 💝
-COMMING SOON MENU
-`
-m.react('💝')   
-conn.sendFile(m.chat, pp, 'prefil.jpg', infobt, m, false, { mentions: [who] })
-m.react(done)
+    let muptime = clockString(_muptime)
+    let str = `> 💝 Qᴜᴇᴇɴ-ꜱʜᴇɴᴀʟɪ-ʙᴏᴛ💝
 
+🧚‍♀️◦ *ɴᴀᴍᴇ ʙᴏᴛ* : ꜱʜᴇɴᴀʟɪ-ᴍᴅ💝
+🧚‍♀️◦ *ᴄʀᴇᴀᴛᴏʀ* : ᴀꜱʜᴇɴᴇᴅɪᴛᴢ💝
+🧚‍♀️◦ *ᴜᴘᴛɪᴍᴇ* : *${muptime}⏰*
+🧚‍♀️◦ *ᴛʏᴘᴇ ᴘʟᴀᴛꜰʀᴏᴍ* : ʀᴇᴘɪʟᴛ💝
+🧚‍♀️◦ *ᴊᴏɪɴ ᴍʏ ɢʀᴏᴜᴘ* :  https://whatsapp.com/channel/0029VarjriX0bIdn0DNuP41O 💝
+🧚‍♀️◦ *ᴄᴏɴᴛᴀᴄᴛ* : https://wa.me/94768738555
+
+*┌ 乂📥 ＤＯＷＮＬＯＡＤＥＲ📥 乂*
+*│◦ 
+*└ ◦
+
+*┌ 乂 🔎 S E A R C H 🔍乂*
+*│◦ 
+*└ ◦ 
+
+*┌ 乂 🧠 ＡＩ 🧠*
+*│◦  
+*└ ◦
+
+
+*┌ 乂 👨‍💻ＯＷＮＥＲ 👨‍💻*
+*└ ◦.ʀᴇꜱᴛᴀʀᴛ*
+
+
+*┌ 乂 👥 ＧＲＯＵＰ 👥*
+*│◦ .ᴛᴀɢᴀʟʟ*
+*└ ◦ *
+
+
+*┌ 乂 📃 ＩＮＦＯ 📃*
+*│◦ .ᴍᴇɴᴜ*
+*│◦ .ꜱᴄʀɪᴘᴛ*
+*│◦ .ᴘɪɴɢ*
+*│◦ .ʀᴜɴᴛɪᴍᴇ*
+*└ ◦ .ᴀʟɪᴠᴇ*
+
+
+*┌ 乂 🔄ＣＯＮＶＥＲＴＥＲ 🔄*
+*│◦ .ᴛᴛꜱ*
+*└ ◦ .sᴛɪᴄᴋᴇʀ*
+
+
+*┌ 乂 🧚‍♀️ R A N D O M 🧚‍♀️*
+*│
+*└ 
+
+*┌ 乂 🏝️W A L L P A P E R🏝️*
+*│
+*└ ◦ 
+
+
+
+*┌ 乂 🌌 L O G O 🌌*
+*│◦ 
+*│◦ 
+*└ ◦ 
+
+
+*┌ 乂 ♦️ O Ｔ H E Ｒ ♦️*
+*│◦ 
+*│◦ 
+*└ ◦ 
+
+> *⚖️Queen-Shenali- : ©AshenEditZ official2024💗*    `
+    conn.sendMessage(m.chat, {
+      text: str,
+      contextInfo: {
+      
+      mentionedJid: [m.sender],
+      isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: '1203619257221654@newsletter',
+                newsletterName: global.author,
+                serverMessageId: -1
+            },
+      forwardingScore: 999,
+      externalAdReply: {
+      title: "💝Qᴜᴇᴇɴ-ꜱʜᴇɴᴀʟɪ-ᴍᴅ💝",
+      body: "ᴍᴀɪɴ-ᴍᴇɴᴜ",
+      thumbnailUrl: pp,
+      sourceUrl: '',
+      mediaType: 1,
+      renderLargerThumbnail: false
+      }}})
+      m.react('✅')
 }
-handler.help = ['menu']
+handler.help = ['alive']
 handler.tags = ['main']
 handler.command = ['menu']
-
 export default handler
+
+function clockString(ms) {
+  let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000)
+  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
+  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+  return [d, 'd ', h, 'h ', m, 'm ', s, 's '].map(v => v.toString().padStart(2, 0)).join('')
+}

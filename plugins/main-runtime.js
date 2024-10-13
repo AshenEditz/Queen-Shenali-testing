@@ -1,5 +1,5 @@
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-let pp = ''
+let pp = './src/fg_logo.jpg'
 m.react('💝')
 	let _muptime
     if (process.send) {
@@ -18,7 +18,7 @@ m.react('💝')
       mentionedJid: [m.sender],
       isForwarded: true,
             forwardedNewsletterMessageInfo: {
-                newsletterJid: '120363199257221654@newsletter',
+                newsletterJid: '120363343441743645@g.us',
                 newsletterName: global.author,
                 serverMessageId: -1
             },
